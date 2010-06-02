@@ -46,7 +46,6 @@ class QueriesController < ApplicationController
       @query.project = nil if params[:query_is_for_all]
       @query.is_public = false unless User.current.allowed_to?(:manage_public_queries, @project) || User.current.admin?
       @query.column_names = nil if params[:default_columns]
-      
       if @query.save
         flash[:notice] = l(:notice_successful_update)
         redirect_to :controller => 'issues', :action => 'index', :project_id => @project, :query_id => @query
