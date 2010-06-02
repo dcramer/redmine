@@ -27,7 +27,7 @@
 					</tr>
 					<tr>
 						<td><%= l(:field_group_by) %></td>
-						<td><%= select_tag('group_by', options_for_select([[]] + @query.groupable_columns.collect {|c| [c.caption, c.name.to_s]}, @query.group_by)) %></td>
+						<td><%= select_tag('group_by', options_for_select([[]] + @query.groupable_columns.collect {|c| [c.caption, c.name.to_s]}, @query.group_by)) %> <%= select_tag("group_by_order", options_for_select([[], [l(:label_ascending), 'asc'], [l(:label_descending), 'desc']], @query.group_by_order)) %></td>
 					</tr>
 				</table>
 			</div>
