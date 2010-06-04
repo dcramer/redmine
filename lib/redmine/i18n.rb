@@ -35,11 +35,14 @@ module Redmine
       ::I18n.t(str.to_s, :value => value, :locale => lang.to_s.gsub(%r{(.+)\-(.+)$}) { "#{$1}-#{$2.upcase}" })
     end
 
+    def convert_datetime(datetime)
+      zone = User.current.time_zone
+      zone ? datetime.in_time_zone(zone) : datetime
+    end
+
     def format_date(date)
       return nil unless date
-      zone = User.current.time_zone
-      local = zone ? date.in_time_zone(zone) : date
-      Setting.date_format.blank? ? ::I18n.l(local.to_date) : local.strftime(Setting.date_format)
+      Setting.date_format.blank? ? ::I18n.l(date.to_date) : date.strftime(Setting.date_format)
     end
     
     def format_time(time, include_date = true)
