@@ -133,60 +133,51 @@
 
 </div>
 
-  <% if @changesets.present? %>
-    <div id="issue-changesets">
-      <h3><%=l(:label_associated_revisions)%></h3>
-      <%= render :partial => 'changesets', :locals => { :changesets => @changesets} %>
+<% if @changesets.present? %>
+  <div id="issue-changesets">
+    <h3><%=l(:label_associated_revisions)%></h3>
+    <%= render :partial => 'changesets', :locals => { :changesets => @changesets} %>
+  </div>
+<% end %>
+
+<% if @journals.present? %>
+  <div id="history">
+    <h3><%=l(:label_history)%></h3>
+    <%= render :partial => 'history', :locals => { :issue => @issue, :journals => @journals } %>
+  </div>
+<% end %>
+
+
+<div style="clear: both;"></div>
+<%= render :partial => 'action_menu', :locals => {:replace_watcher => 'watcher2' } %>
+
+<div style="clear: both;"></div>
+
+<% other_formats_links do |f| %>
+  <%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
+  <%= f.link_to 'PDF' %>
+<% end %>
+
+<% html_title "#{@issue.tracker.name} ##{@issue.id}: #{@issue.subject}" %>
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'issues/sidebar' %>
+
+  <% if User.current.allowed_to?(:add_issue_watchers, @project) ||
+    (@issue.watchers.present? && User.current.allowed_to?(:view_issue_watchers, @project)) %>
+    <div id="watchers">
+      <%= render :partial => 'watchers/watchers', :locals => {:watched => @issue} %>
     </div>
   <% end %>
+<% end %>
 
-  <% if @journals.present? %>
-    <div id="history">
-      <h3><%=l(:label_history)%></h3>
-      <%= render :partial => 'history', :locals => { :issue => @issue, :journals => @journals } %>
-    </div>
-  <% end %>
-
-
-  <div style="clear: both;"></div>
-  <%= render :partial => 'action_menu', :locals => {:replace_watcher => 'watcher2' } %>
-
-  <div style="clear: both;"></div>
-
-  <% other_formats_links do |f| %>
-    <%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
-    <%= f.link_to 'PDF' %>
-  <% end %>
-
-  <% html_title "#{@issue.tracker.name} ##{@issue.id}: #{@issue.subject}" %>
-
-  <% content_for :sidebar do %>
-    <%= render :partial => 'issues/sidebar' %>
-
-    <% if User.current.allowed_to?(:add_issue_watchers, @project) ||
-      (@issue.watchers.present? && User.current.allowed_to?(:view_issue_watchers, @project)) %>
-      <div id="watchers">
-        <%= render :partial => 'watchers/watchers', :locals => {:watched => @issue} %>
-      </div>
-    <% end %>
-  <% end %>
-
-  <% content_for :header_tags do %>
-   <%= auto_discovery_link_tag(:atom, {:format => 'atom', :key => User.current.rss_key}, :title => "#{@issue.project} - #{@issue.tracker} ##{@issue.id}: #{@issue.subject}") %>
-   <%= stylesheet_link_tag 'scm' %>
-   <%= javascript_include_tag 'context_menu' %>
-   <%= stylesheet_link_tag 'context_menu' %>
-  <% end %>
-  <div id="context-menu" style="display: none;"></div>
-  <%= javascript_tag "new ContextMenu('#{url_for(:controller => 'issues', :action => 'context_menu')}')" %>
-
-  <div class="box">
-    <% labelled_tabular_form_for :issue, @issue,
-                                 :url => {:action => 'update', :id => @issue},
-                                 :html => {:id => 'issue-form',
-                                           :class => nil,
-                                           :method => :put,
-                                           :multipart => true} do |form| %>
+<div class="box">
+  <% labelled_tabular_form_for :issue, @issue,
+                               :url => {:action => 'update', :id => @issue},
+                               :html => {:id => 'comment-form',
+                                         :class => nil,
+                                         :method => :put,
+                                         :multipart => true} do |form| %>
      <fieldset><legend><%= l(:field_notes) %></legend>
      <%= text_area_tag 'notes', @notes, :cols => 60, :rows => 10, :class => 'wiki-edit' %>
      <%= wikitoolbar_for 'notes' %>
@@ -194,8 +185,17 @@
 
      <p><%=l(:label_attachment_plural)%><br /><%= render :partial => 'attachments/form' %></p>
      </fieldset>
-     <% end %>
      <div class="submitrow"><%= submit_tag l(:button_submit) %></div>
-  </div>
+   <% end %>
+</div>
 
 <div id="preview" class="wiki"></div>
+
+<% content_for :header_tags do %>
+ <%= auto_discovery_link_tag(:atom, {:format => 'atom', :key => User.current.rss_key}, :title => "#{@issue.project} - #{@issue.tracker} ##{@issue.id}: #{@issue.subject}") %>
+ <%= stylesheet_link_tag 'scm' %>
+ <%= javascript_include_tag 'context_menu' %>
+ <%= stylesheet_link_tag 'context_menu' %>
+<% end %>
+<div id="context-menu" style="display: none;"></div>
+<%= javascript_tag "new ContextMenu('#{url_for(:controller => 'issues', :action => 'context_menu')}')" %>
