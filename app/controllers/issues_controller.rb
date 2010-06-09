@@ -116,7 +116,7 @@ class IssuesController < ApplicationController
     @journals.reverse! if User.current.wants_comments_in_reverse_order?
     @changesets = @issue.changesets.visible.all
     @changesets.reverse! if User.current.wants_comments_in_reverse_order?
-    @allowed_statuses = @issue.new_statuses_allowed_to(User.current)
+    @allowed_statuses = @issue.new_statuses_allowed_to(User.current, @issue.tracker)
     @edit_allowed = User.current.allowed_to?(:edit_issues, @project)
     @priorities = IssuePriority.all
     @time_entry = TimeEntry.new
@@ -364,7 +364,6 @@ class IssuesController < ApplicationController
     @issue.attributes = params[:issue]
     @allowed_statuses = ([@issue.status] + @issue.status.find_new_statuses_allowed_to(User.current.roles_for_project(@project), @issue.tracker)).uniq
     @priorities = IssuePriority.all
-    
     render :partial => 'attributes'
   end
   
@@ -430,7 +429,7 @@ private
   # from the params
   # TODO: Refactor, not everything in here is needed by #edit
   def update_issue_from_params
-    @allowed_statuses = @issue.new_statuses_allowed_to(User.current)
+    @allowed_statuses = @issue.new_statuses_allowed_to(User.current, @issue.tracker)
     @priorities = IssuePriority.all
     @edit_allowed = User.current.allowed_to?(:edit_issues, @project)
     @time_entry = TimeEntry.new
