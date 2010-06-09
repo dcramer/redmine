@@ -372,7 +372,7 @@ p.pagination {margin-top:8px;}
 .tabular p{
 margin: 0;
 padding: 5px 0 8px 0;
-padding-left: 180px; /*width of left column containing the label elements*/
+padding-left: 150px; /*width of left column containing the label elements*/
 height: 1%;
 clear:left;
 }
@@ -383,8 +383,8 @@ html>body .tabular p {overflow:hidden;}
 font-weight: bold;
 float: left;
 text-align: right;
-margin-left: -180px; /*width of left column*/
-width: 175px; /*width of labels. Should be smaller than left column to create some right 
+margin-left: -150px; /*width of left column*/
+width: 145px; /*width of labels. Should be smaller than left column to create some right 
 margin*/
 }
 
@@ -409,7 +409,7 @@ float:none;
 margin-left: 5px !important;
 width: auto;
 }
-
+.box .submitrow { margin-top: 8px; text-align: right; }
 input#time_entry_comments { width: 90%;}
 
 #preview fieldset {margin-top: 1em; background: url(../images/draft.png)}
