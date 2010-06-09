@@ -133,35 +133,35 @@
 
 </div>
 
-  <% if @changesets.present? %>
-    <div id="issue-changesets">
-      <h3><%=l(:label_associated_revisions)%></h3>
-      <%= render :partial => 'changesets', :locals => { :changesets => @changesets} %>
-    </div>
-  <% end %>
+<% if @changesets.present? %>
+  <div id="issue-changesets">
+    <h3><%=l(:label_associated_revisions)%></h3>
+    <%= render :partial => 'changesets', :locals => { :changesets => @changesets} %>
+  </div>
+<% end %>
 
-  <% if @journals.present? %>
-    <div id="history">
-      <h3><%=l(:label_history)%></h3>
-      <%= render :partial => 'history', :locals => { :issue => @issue, :journals => @journals } %>
-    </div>
-  <% end %>
+<% if @journals.present? %>
+  <div id="history">
+    <h3><%=l(:label_history)%></h3>
+    <%= render :partial => 'history', :locals => { :issue => @issue, :journals => @journals } %>
+  </div>
+<% end %>
 
 
-  <div style="clear: both;"></div>
-  <%= render :partial => 'action_menu', :locals => {:replace_watcher => 'watcher2' } %>
+<div style="clear: both;"></div>
+<%= render :partial => 'action_menu', :locals => {:replace_watcher => 'watcher2' } %>
 
-  <div style="clear: both;"></div>
+<div style="clear: both;"></div>
 
-  <% other_formats_links do |f| %>
-    <%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
-    <%= f.link_to 'PDF' %>
-  <% end %>
+<% other_formats_links do |f| %>
+  <%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
+  <%= f.link_to 'PDF' %>
+<% end %>
 
-  <% html_title "#{@issue.tracker.name} ##{@issue.id}: #{@issue.subject}" %>
+<% html_title "#{@issue.tracker.name} ##{@issue.id}: #{@issue.subject}" %>
 
-  <% content_for :sidebar do %>
-    <%= render :partial => 'issues/sidebar' %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'issues/sidebar' %>
 
       <% if User.current.allowed_to?(:add_issue_watchers, @project) ||
         (@issue.watchers.present? && User.current.allowed_to?(:view_issue_watchers, @project)) %>
