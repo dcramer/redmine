@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-ENV["RAILS_ENV"] ||= "test"
+ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require File.expand_path(File.dirname(__FILE__) + '/helper_testcase')
@@ -60,6 +60,16 @@ class ActiveSupport::TestCase
   
   def uploaded_test_file(name, mime)
     ActionController::TestUploadedFile.new(ActiveSupport::TestCase.fixture_path + "/files/#{name}", mime)
+  end
+
+  # Mock out a file
+  def mock_file
+    file = 'a_file.png'
+    file.stubs(:size).returns(32)
+    file.stubs(:original_filename).returns('a_file.png')
+    file.stubs(:content_type).returns('image/png')
+    file.stubs(:read).returns(false)
+    file
   end
   
   # Use a temporary directory for attachment related tests

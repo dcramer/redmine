@@ -596,7 +596,7 @@ he:
   text_issue_category_reassign_to: הצב מחדש את הקטגוריה לנושאים
   
   default_role_manager: מנהל
-  default_role_developper: מפתח
+  default_role_developer: מפתח
   default_role_reporter: מדווח
   default_tracker_bug: באג
   default_tracker_feature: פיצ'ר
@@ -906,3 +906,5 @@ he:
   notice_failed_to_save_members: "Failed to save member(s): {{errors}}."
   text_zoom_out: Zoom out
   text_zoom_in: Zoom in
+  notice_unable_delete_time_entry: Unable to delete time log entry.
+  label_overall_spent_time: Overall spent time

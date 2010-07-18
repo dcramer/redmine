@@ -775,7 +775,7 @@ ca:
   text_custom_field_possible_values_info: 'Una línia per a cada valor'
   
   default_role_manager: Gestor
-  default_role_developper: Desenvolupador
+  default_role_developer: Desenvolupador
   default_role_reporter: Informador
   default_tracker_bug: Error
   default_tracker_feature: Característica
@@ -899,3 +899,5 @@ ca:
   notice_failed_to_save_members: "Failed to save member(s): {{errors}}."
   text_zoom_out: Zoom out
   text_zoom_in: Zoom in
+  notice_unable_delete_time_entry: Unable to delete time log entry.
+  label_overall_spent_time: Overall spent time

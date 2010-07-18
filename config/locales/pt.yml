@@ -717,7 +717,7 @@ pt:
   text_email_delivery_not_configured: "Entrega por e-mail não está configurada, e as notificação estão desactivadas.\nConfigure o seu servidor de SMTP em config/email.yml e reinicie a aplicação para activar estas funcionalidades."
   
   default_role_manager: Gestor
-  default_role_developper: Programador
+  default_role_developer: Programador
   default_role_reporter: Repórter
   default_tracker_bug: Bug
   default_tracker_feature: Funcionalidade
@@ -914,3 +914,5 @@ pt:
   notice_failed_to_save_members: "Failed to save member(s): {{errors}}."
   text_zoom_out: Zoom out
   text_zoom_in: Zoom in
+  notice_unable_delete_time_entry: Unable to delete time log entry.
+  label_overall_spent_time: Overall spent time

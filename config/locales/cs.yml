@@ -681,7 +681,7 @@ cs:
   text_reassign_time_entries: 'Přeřadit evidované hodiny k tomuto úkolu:'
   
   default_role_manager: Manažer
-  default_role_developper: Vývojář
+  default_role_developer: Vývojář
   default_role_reporter: Reportér
   default_tracker_bug: Chyba
   default_tracker_feature: Požadavek
@@ -902,3 +902,5 @@ cs:
   notice_failed_to_save_members: "Failed to save member(s): {{errors}}."
   text_zoom_out: Zoom out
   text_zoom_in: Zoom in
+  notice_unable_delete_time_entry: Unable to delete time log entry.
+  label_overall_spent_time: Overall spent time
