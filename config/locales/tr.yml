@@ -5,6 +5,7 @@ tr:
   locale:
     native_name: Türkçe
     address_separator: " "
+  direction: ltr
   date:
     formats:
       default: "%d.%m.%Y"
@@ -749,7 +750,7 @@ tr:
   text_user_wrote: "{{value}} wrote:"
   setting_mail_handler_api_enabled: Enable WS for incoming emails
   label_and_its_subprojects: "{{value}} and its subprojects"
-  mail_subject_reminder: "{{count}} issue(s) due in the next days"
+  mail_subject_reminder: "{{count}} issue(s) due in the next {{days}} days"
   setting_mail_handler_api_key: API key
   setting_commit_logs_encoding: Commit messages encoding
   general_csv_decimal_separator: '.'
@@ -931,3 +932,4 @@ tr:
   text_zoom_in: Zoom in
   notice_unable_delete_time_entry: Unable to delete time log entry.
   label_overall_spent_time: Overall spent time
+  field_time_entries: Log time

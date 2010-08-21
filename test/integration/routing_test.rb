@@ -85,10 +85,10 @@ class RoutingTest < ActionController::IntegrationTest
     # Extra actions
     should_route :get, "/projects/23/issues/64/copy", :controller => 'issues', :action => 'new', :project_id => '23', :copy_from => '64'
 
-    should_route :get, "/issues/1/move", :controller => 'issues', :action => 'move', :id => '1'
-    should_route :post, "/issues/1/move", :controller => 'issues', :action => 'move', :id => '1'
+    should_route :get, "/issues/move/new", :controller => 'issue_moves', :action => 'new'
+    should_route :post, "/issues/move", :controller => 'issue_moves', :action => 'create'
     
-    should_route :post, "/issues/1/quoted", :controller => 'issues', :action => 'reply', :id => '1'
+    should_route :post, "/issues/1/quoted", :controller => 'journals', :action => 'new', :id => '1'
 
     should_route :get, "/issues/calendar", :controller => 'calendars', :action => 'show'
     should_route :post, "/issues/calendar", :controller => 'calendars', :action => 'show'
@@ -100,7 +100,12 @@ class RoutingTest < ActionController::IntegrationTest
     should_route :get, "/projects/project-name/issues/gantt", :controller => 'gantts', :action => 'show', :project_id => 'project-name'
     should_route :post, "/projects/project-name/issues/gantt", :controller => 'gantts', :action => 'show', :project_id => 'project-name'
 
-    should_route :get, "/issues/auto_complete", :controller => 'issues', :action => 'auto_complete'
+    should_route :get, "/issues/auto_complete", :controller => 'auto_completes', :action => 'issues'
+
+    should_route :get, "/issues/preview/123", :controller => 'previews', :action => 'issue', :id => '123'
+    should_route :post, "/issues/preview/123", :controller => 'previews', :action => 'issue', :id => '123'
+    should_route :get, "/issues/context_menu", :controller => 'context_menus', :action => 'issues'
+    should_route :post, "/issues/context_menu", :controller => 'context_menus', :action => 'issues'
   end
 
   context "issue categories" do

@@ -1,4 +1,5 @@
 uk:
+  direction: ltr
   date:
     formats:
       # Use the strftime parameters for formats.
@@ -64,6 +65,10 @@ uk:
         other: "almost {{count}} years"
 
   number: 
+    format:
+      separator: "."
+      delimiter: ""
+      precision: 3
     human: 
       format: 
         precision: 1
@@ -706,7 +711,7 @@ uk:
   text_subprojects_destroy_warning: "Its subproject(s): {{value}} will be also deleted."
   label_and_its_subprojects: "{{value}} and its subprojects"
   mail_body_reminder: "{{count}} issue(s) that are assigned to you are due in the next {{days}} days:"
-  mail_subject_reminder: "{{count}} issue(s) due in the next days"
+  mail_subject_reminder: "{{count}} issue(s) due in the next {{days}} days"
   text_user_wrote: "{{value}} wrote:"
   label_duplicated_by: duplicated by
   setting_enabled_scm: Enabled SCM
@@ -900,3 +905,4 @@ uk:
   text_zoom_in: Zoom in
   notice_unable_delete_time_entry: Unable to delete time log entry.
   label_overall_spent_time: Overall spent time
+  field_time_entries: Log time

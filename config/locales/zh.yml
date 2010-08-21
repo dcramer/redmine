@@ -2,6 +2,7 @@
 # by tsechingho (http://github.com/tsechingho)
 
 zh:
+  direction: ltr
   date:
     formats:
       default: "%Y-%m-%d"
@@ -200,7 +201,7 @@ zh:
   mail_body_account_information: 您的帐号信息
   mail_subject_account_activation_request: "{{value}}帐号激活请求"
   mail_body_account_activation_request: "新用户（{{value}}）已完成注册，正在等候您的审核："
-  mail_subject_reminder: "{{count}} 个问题需要尽快解决"
+  mail_subject_reminder: "{{count}} 个问题需要尽快解决 ({{days}})"
   mail_body_reminder: "指派给您的 {{count}} 个问题需要在 {{days}} 天内完成："
   mail_subject_wiki_content_added: "'{{page}}' wiki页面已添加"
   mail_body_wiki_content_added: "'{{page}}' wiki页面已由 {{author}} 添加。"
@@ -498,9 +499,9 @@ zh:
   label_date: 日期
   label_integer: 整数
   label_float: 浮点数
-  label_boolean: 布尔量
-  label_string: 文字
-  label_text: 长段文字
+  label_boolean: 布尔值
+  label_string: 字符串
+  label_text: 文本
   label_attribute: 属性
   label_attribute_plural: 属性
   label_download: "{{count}} 次下载"
@@ -919,10 +920,11 @@ zh:
   error_unable_to_connect: 不能连接到 ({{value}})
   error_can_not_remove_role: 该角色正在使用中, 不能删除.
   error_can_not_delete_tracker: 该跟踪标签包含问题, 不能删除.
-  field_principal: Principal
+  field_principal: 用户/用户组
   label_my_page_block: 我的工作台模块
   notice_failed_to_save_members: "成员保存失败：{{errors}}。"
   text_zoom_out: 缩小
   text_zoom_in: 放大
   notice_unable_delete_time_entry: 无法删除工时记录。
   label_overall_spent_time: 所有项目耗用工时
+  field_time_entries: Log time

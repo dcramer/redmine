@@ -3,6 +3,7 @@
 # 2010-01-25
 # Distributed under the same terms as the Redmine itself.
 eu:
+  direction: ltr
   date:
     formats:
       # Use the strftime parameters for formats.
@@ -68,6 +69,10 @@ eu:
         other: "ia {{count}} urte"
 
   number:
+    format:
+      separator: "."
+      delimiter: ""
+      precision: 3
     human:
       format:
         delimiter: ""
@@ -180,7 +185,7 @@ eu:
   mail_body_account_information: Zure kontuaren informazioa
   mail_subject_account_activation_request: "{{value}} kontu gaitzeko eskaera"
   mail_body_account_activation_request: "Erabiltzaile berri bat ({{value}}) erregistratu da. Kontua zure onarpenaren zain dago:"
-  mail_subject_reminder: "{{count}} arazo hurrengo egunetan amaitzen d(ir)a"
+  mail_subject_reminder: "{{count}} arazo hurrengo {{days}} egunetan amaitzen d(ir)a"
   mail_body_reminder: "Zuri esleituta dauden {{count}} arazo hurrengo {{days}} egunetan amaitzen d(ir)a:"
   mail_subject_wiki_content_added: "'{{page}}' wiki orria gehitu da"
   mail_body_wiki_content_added: "{{author}}-(e)k '{{page}}' wiki orria gehitu du."
@@ -908,3 +913,4 @@ eu:
   text_zoom_in: Zoom in
   notice_unable_delete_time_entry: Unable to delete time log entry.
   label_overall_spent_time: Overall spent time
+  field_time_entries: Log time

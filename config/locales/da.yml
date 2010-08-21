@@ -3,6 +3,7 @@
 # updated and upgraded to 0.9 by Morten Krogh Andersen (http://www.krogh.net)
 
 da:
+  direction: ltr
   date:
     formats:
       default: "%d.%m.%Y"
@@ -791,7 +792,7 @@ da:
   permission_browse_repository: Gennemse repository
   permission_manage_repository: Administrér repository
   permission_manage_members: Administrér medlemmer
-  mail_subject_reminder: "{{count}} sag(er) har deadline i de kommende dage"
+  mail_subject_reminder: "{{count}} sag(er) har deadline i de kommende dage ({{days}})"
   permission_add_issue_notes: Tilføj noter
   permission_edit_messages: Redigér beskeder
   permission_view_issue_watchers: Se liste over overvågere
@@ -924,3 +925,4 @@ da:
   text_zoom_in: Zoom in
   notice_unable_delete_time_entry: Unable to delete time log entry.
   label_overall_spent_time: Overall spent time
+  field_time_entries: Log time

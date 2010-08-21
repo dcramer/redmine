@@ -102,6 +102,12 @@ ActionController::Routing::Routes.draw do |map|
       document_actions.connect 'documents/:id/:action', :action => /destroy|edit/
     end
   end
+
+  map.resources :issue_moves, :only => [:new, :create], :path_prefix => '/issues', :as => 'move'
+  map.auto_complete_issues '/issues/auto_complete', :controller => 'auto_completes', :action => 'issues'
+  # TODO: would look nicer as /issues/:id/preview
+  map.preview_issue '/issues/preview/:id', :controller => 'previews', :action => 'issue'
+  map.issues_context_menu '/issues/context_menu', :controller => 'context_menus', :action => 'issues'
   
   map.with_options :controller => 'issues' do |issues_routes|
     issues_routes.with_options :conditions => {:method => :get} do |issues_views|
@@ -116,15 +122,14 @@ ActionController::Routing::Routes.draw do |map|
       issues_views.connect 'issues/:id', :action => 'show', :id => /\d+/
       issues_views.connect 'issues/:id.:format', :action => 'show', :id => /\d+/
       issues_views.connect 'issues/:id/edit', :action => 'edit', :id => /\d+/
-      issues_views.connect 'issues/:id/move', :action => 'move', :id => /\d+/
     end
     issues_routes.with_options :conditions => {:method => :post} do |issues_actions|
       issues_actions.connect 'issues', :action => 'index'
       issues_actions.connect 'projects/:project_id/issues', :action => 'create'
       issues_actions.connect 'projects/:project_id/issues/gantt', :controller => 'gantts', :action => 'show'
       issues_actions.connect 'projects/:project_id/issues/calendar', :controller => 'calendars', :action => 'show'
-      issues_actions.connect 'issues/:id/quoted', :action => 'reply', :id => /\d+/
-      issues_actions.connect 'issues/:id/:action', :action => /edit|move|destroy/, :id => /\d+/
+      issues_actions.connect 'issues/:id/quoted', :controller => 'journals', :action => 'new', :id => /\d+/
+      issues_actions.connect 'issues/:id/:action', :action => /edit|destroy/, :id => /\d+/
       issues_actions.connect 'issues.:format', :action => 'create', :format => /xml/
     end
     issues_routes.with_options :conditions => {:method => :put} do |issues_actions|
@@ -138,7 +143,7 @@ ActionController::Routing::Routes.draw do |map|
     issues_routes.connect 'issues/calendar', :controller => 'calendars', :action => 'show'
     issues_routes.connect 'issues/:action'
   end
-  
+
   map.with_options  :controller => 'issue_relations', :conditions => {:method => :post} do |relations|
     relations.connect 'issues/:issue_id/relations/:id', :action => 'new'
     relations.connect 'issues/:issue_id/relations/:id/destroy', :action => 'destroy'

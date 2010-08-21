@@ -1,4 +1,5 @@
 cs:
+  direction: ltr
   date:
     formats:
       # Use the strftime parameters for formats.
@@ -63,7 +64,11 @@ cs:
         one:   "almost 1 year"
         other: "almost {{count}} years"
 
-  number: 
+  number:
+    format:
+      separator: "."
+      delimiter: ""
+      precision: 3
     human: 
       format: 
         precision: 1
@@ -710,7 +715,7 @@ cs:
   text_subprojects_destroy_warning: "Jeho podprojek(y): {{value}} budou také smazány."
   label_and_its_subprojects: "{{value}} a jeho  podprojekty"
   mail_body_reminder: "{{count}} úkol(ů), které máte přiřazeny má termín během několik dní ({{days}}):"
-  mail_subject_reminder: "{{count}} úkol(ů) má termín během několik dní"
+  mail_subject_reminder: "{{count}} úkol(ů) má termín během několik dní ({{days}})"
   text_user_wrote: "{{value}} napsal:"
   label_duplicated_by: duplicated by
   setting_enabled_scm: Povoleno SCM
@@ -904,3 +909,4 @@ cs:
   text_zoom_in: Zoom in
   notice_unable_delete_time_entry: Unable to delete time log entry.
   label_overall_spent_time: Overall spent time
+  field_time_entries: Log time

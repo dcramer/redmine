@@ -1,4 +1,5 @@
 en-GB:
+  direction: ltr
   date:
     formats:
       # Use the strftime parameters for formats.
@@ -64,6 +65,11 @@ en-GB:
         other: "almost {{count}} years"
 
   number:
+    format:
+      separator: "."
+      delimiter: " "
+      precision: 3
+
     currency:
       format:
         format: "%u%n"
@@ -180,7 +186,7 @@ en-GB:
   mail_body_account_information: Your account information
   mail_subject_account_activation_request: "{{value}} account activation request"
   mail_body_account_activation_request: "A new user ({{value}}) has registered. The account is pending your approval:"
-  mail_subject_reminder: "{{count}} issue(s) due in the next days"
+  mail_subject_reminder: "{{count}} issue(s) due in the next {{days}} days"
   mail_body_reminder: "{{count}} issue(s) that are assigned to you are due in the next {{days}} days:"
   mail_subject_wiki_content_added: "'{{page}}' wiki page has been added"
   mail_body_wiki_content_added: "The '{{page}}' wiki page has been added by {{author}}."
@@ -907,3 +913,4 @@ en-GB:
   error_can_not_delete_tracker: This tracker contains issues and can't be deleted.
   notice_failed_to_save_members: "Failed to save member(s): {{errors}}."
   label_project_copy_notifications: Send email notifications during the project copy
+  field_time_entries: Log time
