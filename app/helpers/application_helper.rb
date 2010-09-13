@@ -32,8 +32,27 @@ module ApplicationHelper
   end
 
   # Display a link if user is authorized
+  #
+  # @param [String] name Anchor text (passed to link_to)
+  # @param [Hash, String] options Hash params or url for the link target (passed to link_to).
+  #        This will checked by authorize_for to see if the user is authorized
+  # @param [optional, Hash] html_options Options passed to link_to
+  # @param [optional, Hash] parameters_for_method_reference Extra parameters for link_to
   def link_to_if_authorized(name, options = {}, html_options = nil, *parameters_for_method_reference)
-    link_to(name, options, html_options, *parameters_for_method_reference) if authorize_for(options[:controller] || params[:controller], options[:action])
+    if options.is_a?(String)
+      begin
+        route = ActionController::Routing::Routes.recognize_path(options.gsub(/\?.*/,''), :method => options[:method] || :get)
+        link_controller = route[:controller]
+        link_action = route[:action]
+      rescue ActionController::RoutingError # Parse failed, not a route
+        link_controller, link_action = nil, nil
+      end
+    else
+      link_controller = options[:controller] || params[:controller]
+      link_action = options[:action]
+    end
+
+    link_to(name, options, html_options, *parameters_for_method_reference) if authorize_for(link_controller, link_action)
   end
 
   # Display a link to remote if user is authorized
@@ -101,6 +120,11 @@ module ApplicationHelper
     text = options.delete(:text) || format_revision(revision)
 
     link_to(text, {:controller => 'repositories', :action => 'revision', :id => project, :rev => revision}, :title => l(:label_revision_id, revision))
+  end
+  
+  def link_to_project(project, options={})
+    options[:class] ||= 'project'
+    link_to(h(project), {:controller => 'projects', :action => 'show', :id => project}, :class => options[:class])
   end
 
   # Generates a link to a project if active
@@ -737,6 +761,11 @@ module ApplicationHelper
         javascript_include_tag('context_menu') +
           stylesheet_link_tag('context_menu')
       end
+      if l(:direction) == 'rtl'
+        content_for :header_tags do
+          stylesheet_link_tag('context_menu_rtl')
+        end
+      end
       @context_menu_included = true
     end
     javascript_tag "new ContextMenu('#{ url_for(url) }')"
@@ -808,6 +837,8 @@ module ApplicationHelper
         email = $1
       end
       return gravatar(email.to_s.downcase, options) unless email.blank? rescue nil
+    else
+      ''
     end
   end
 
