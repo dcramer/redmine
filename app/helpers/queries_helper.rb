@@ -87,7 +87,6 @@ module QueriesHelper
             @query.add_short_filter(field, params[field]) if params[field]
           end
         end
-        print params
         @query.group_by = params[:group_by]
         @query.group_by_order = params[:group_by_order]
         @query.column_names = params[:query] && params[:query][:column_names]

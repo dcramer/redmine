@@ -29,7 +29,7 @@ class QueriesController < ApplicationController
     
     @query.add_filters(params[:fields], params[:operators], params[:values]) if params[:fields]
     @query.group_by ||= params[:group_by]
-    @query.group_by_order ||= params[:group_by_order]
+    
     if request.post? && params[:confirm] && @query.save
       flash[:notice] = l(:notice_successful_create)
       redirect_to :controller => 'issues', :action => 'index', :project_id => @project, :query_id => @query
@@ -46,6 +46,7 @@ class QueriesController < ApplicationController
       @query.project = nil if params[:query_is_for_all]
       @query.is_public = false unless User.current.allowed_to?(:manage_public_queries, @project) || User.current.admin?
       @query.column_names = nil if params[:default_columns]
+      
       if @query.save
         flash[:notice] = l(:notice_successful_update)
         redirect_to :controller => 'issues', :action => 'index', :project_id => @project, :query_id => @query
