@@ -171,6 +171,26 @@
       <% end %>
     <% end %>
 
+<div class="box">
+  <% labelled_tabular_form_for :issue, @issue,
+                               :url => {:action => 'update', :id => @issue},
+                               :html => {:id => 'comment-form',
+                                         :class => nil,
+                                         :method => :put,
+                                         :multipart => true} do |form| %>
+     <fieldset><legend><%= l(:field_notes) %></legend>
+     <%= text_area_tag 'notes', @notes, :cols => 60, :rows => 10, :class => 'wiki-edit' %>
+     <%= wikitoolbar_for 'notes' %>
+     <%= call_hook(:view_issues_edit_notes_bottom, { :issue => @issue, :notes => @notes, :form => form }) %>
+
+     <p><%=l(:label_attachment_plural)%><br /><%= render :partial => 'attachments/form' %></p>
+     </fieldset>
+     <div class="submitrow"><%= submit_tag l(:button_submit) %></div>
+   <% end %>
+</div>
+
+<div id="preview" class="wiki"></div>
+
 <% content_for :header_tags do %>
     <%= auto_discovery_link_tag(:atom, {:format => 'atom', :key => User.current.rss_key}, :title => "#{@issue.project} - #{@issue.tracker} ##{@issue.id}: #{@issue.subject}") %>
     <%= stylesheet_link_tag 'scm' %>
