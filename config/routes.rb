@@ -148,10 +148,12 @@ ActionController::Routing::Routes.draw do |map|
       news_views.connect 'news/:id/edit', :action => 'edit'
     end
     news_routes.with_options do |news_actions|
-      news_actions.connect 'projects/:project_id/news', :action => 'new'
-      news_actions.connect 'news/:id/edit', :action => 'edit'
+      news_actions.connect 'projects/:project_id/news', :action => 'create', :conditions => {:method => :post}
       news_actions.connect 'news/:id/destroy', :action => 'destroy'
     end
+    news_routes.connect 'news/:id/edit', :action => 'update', :conditions => {:method => :put}
+
+    news_routes.connect 'news/:id/comments', :controller => 'comments', :action => 'create', :conditions => {:method => :post}
   end
   
   map.connect 'projects/:id/members/new', :controller => 'members', :action => 'new'
@@ -173,6 +175,9 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
+  # For nice "roadmap" in the url for the index action
+  map.connect 'projects/:project_id/roadmap', :controller => 'versions', :action => 'index'
+
   map.resources :projects, :member => {
     :copy => [:get, :post],
     :settings => :get,
@@ -182,6 +187,7 @@ ActionController::Routing::Routes.draw do |map|
   } do |project|
     project.resource :project_enumerations, :as => 'enumerations', :only => [:update, :destroy]
     project.resources :files, :only => [:index, :new, :create]
+    project.resources :versions, :collection => {:close_completed => :put}, :member => {:status_by => :post}
   end
 
   # Destroy uses a get request to prompt the user before the actual DELETE request
@@ -201,18 +207,8 @@ ActionController::Routing::Routes.draw do |map|
     activity.connect 'activity', :id => nil
     activity.connect 'activity.:format', :id => nil
   end
+
     
-  map.with_options :controller => 'versions' do |versions|
-    versions.connect 'projects/:project_id/versions/new', :action => 'new'
-    versions.connect 'projects/:project_id/roadmap', :action => 'index'
-    versions.connect 'versions/:action/:id', :conditions => {:method => :get}
-    
-    versions.with_options :conditions => {:method => :post} do |version_actions|
-      version_actions.connect 'versions/update/:id', :action => 'update'
-      version_actions.connect 'projects/:project_id/versions/close_completed', :action => 'close_completed'
-    end
-  end
-  
   map.with_options :controller => 'issue_categories' do |categories|
     categories.connect 'projects/:project_id/issue_categories/new', :action => 'new'
   end

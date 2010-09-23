@@ -230,6 +230,7 @@ ru:
   button_delete: Удалить
   button_download: Загрузить
   button_edit: Редактировать
+  button_edit_associated_wikipage: "Редактировать связанную wiki-страницу: {{page_title}}"
   button_list: Список
   button_lock: Заблокировать
   button_login: Вход
@@ -370,6 +371,7 @@ ru:
   field_subject: Тема
   field_subproject: Подпроект
   field_summary: Сводка
+  field_text: Текстовое поле
   field_time_entries: Затраченное время
   field_time_zone: Часовой пояс
   field_title: Название
@@ -898,7 +900,8 @@ ru:
   status_active: активен
   status_locked: заблокирован
   status_registered: зарегистрирован
-
+  
+  text_are_you_sure_with_children: Удалить задачу и все ее подзадачи?
   text_are_you_sure: Подтвердите
   text_assign_time_entries_to_project: Прикрепить зарегистрированное время к проекту
   text_caracters_maximum: "Максимум {{count}} символов(а)."

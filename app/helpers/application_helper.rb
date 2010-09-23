@@ -326,7 +326,7 @@ module ApplicationHelper
   def time_tag(time)
     text = distance_of_time_in_words(Time.now, time)
     if @project
-      link_to(text, {:controller => 'projects', :action => 'activity', :id => @project, :from => time.to_date}, :title => format_time(time))
+      link_to(text, {:controller => 'activities', :action => 'index', :id => @project, :from => time.to_date}, :title => format_time(time))
     else
       content_tag('acronym', text, :title => format_time(time))
     end
@@ -829,7 +829,7 @@ module ApplicationHelper
   # +user+ can be a User or a string that will be scanned for an email address (eg. 'joe <joe@foo.bar>')
   def avatar(user, options = { })
     if Setting.gravatar_enabled?
-      options.merge!({:ssl => Setting.protocol == 'https', :default => Setting.gravatar_default})
+      options.merge!({:ssl => (defined?(request) && request.ssl?), :default => Setting.gravatar_default})
       email = nil
       if user.respond_to?(:mail)
         email = user.mail

@@ -382,6 +382,11 @@ class Issue < ActiveRecord::Base
     done_date = start_date + ((due_date - start_date+1)* done_ratio/100).floor
     return done_date <= Date.today
   end
+
+  # Does this issue have children?
+  def children?
+    !leaf?
+  end
   
   # Users the issue can be assigned to
   def assignable_users
@@ -846,7 +851,7 @@ class Issue < ActiveRecord::Base
                                                 j.id as #{select_field},
                                                 count(i.id) as total 
                                               from 
-                                                  #{Issue.table_name} i, #{IssueStatus.table_name} s, #{joins} as j
+                                                  #{Issue.table_name} i, #{IssueStatus.table_name} s, #{joins} j
                                               where 
                                                 i.status_id=s.id 
                                                 and #{where}
