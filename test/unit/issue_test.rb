@@ -544,7 +544,7 @@ class IssueTest < ActiveSupport::TestCase
     assert issue.save
     assert_equal 1, ActionMailer::Base.deliveries.size
   end
-  
+
   def test_stale_issue_should_not_send_email_notification
     ActionMailer::Base.deliveries.clear
     issue = Issue.find(1)
@@ -593,6 +593,9 @@ class IssueTest < ActiveSupport::TestCase
       @issue = Issue.find(1)
       @issue_status = IssueStatus.find(1)
       @issue_status.update_attribute(:default_done_ratio, 50)
+      @issue2 = Issue.find(2)
+      @issue_status2 = IssueStatus.find(2)
+      @issue_status2.update_attribute(:default_done_ratio, 0)
     end
     
     context "with Setting.issue_done_ratio using the issue_field" do
@@ -602,6 +605,7 @@ class IssueTest < ActiveSupport::TestCase
       
       should "read the issue's field" do
         assert_equal 0, @issue.done_ratio
+        assert_equal 30, @issue2.done_ratio
       end
     end
 
@@ -612,6 +616,7 @@ class IssueTest < ActiveSupport::TestCase
       
       should "read the Issue Status's default done ratio" do
         assert_equal 50, @issue.done_ratio
+        assert_equal 0, @issue2.done_ratio
       end
     end
   end
@@ -621,6 +626,9 @@ class IssueTest < ActiveSupport::TestCase
       @issue = Issue.find(1)
       @issue_status = IssueStatus.find(1)
       @issue_status.update_attribute(:default_done_ratio, 50)
+      @issue2 = Issue.find(2)
+      @issue_status2 = IssueStatus.find(2)
+      @issue_status2.update_attribute(:default_done_ratio, 0)
     end
     
     context "with Setting.issue_done_ratio using the issue_field" do
@@ -630,8 +638,10 @@ class IssueTest < ActiveSupport::TestCase
       
       should "not change the issue" do
         @issue.update_done_ratio_from_issue_status
+        @issue2.update_done_ratio_from_issue_status
 
-        assert_equal 0, @issue.done_ratio
+        assert_equal 0, @issue.read_attribute(:done_ratio)
+        assert_equal 30, @issue2.read_attribute(:done_ratio)
       end
     end
 
@@ -640,10 +650,12 @@ class IssueTest < ActiveSupport::TestCase
         Setting.issue_done_ratio = 'issue_status'
       end
       
-      should "not change the issue's done ratio" do
+      should "change the issue's done ratio" do
         @issue.update_done_ratio_from_issue_status
+        @issue2.update_done_ratio_from_issue_status
 
-        assert_equal 50, @issue.done_ratio
+        assert_equal 50, @issue.read_attribute(:done_ratio)
+        assert_equal 0, @issue2.read_attribute(:done_ratio)
       end
     end
   end
@@ -725,5 +737,50 @@ class IssueTest < ActiveSupport::TestCase
     issue.project = Project.find(2)
     assert issue.save
     assert_equal before, Issue.on_active_project.length
+  end
+
+  context "Issue#recipients" do
+    setup do
+      @project = Project.find(1)
+      @author = User.generate_with_protected!
+      @assignee = User.generate_with_protected!
+      @issue = Issue.generate_for_project!(@project, :assigned_to => @assignee, :author => @author)
+    end
+    
+    should "include project recipients" do
+      assert @project.recipients.present?
+      @project.recipients.each do |project_recipient|
+        assert @issue.recipients.include?(project_recipient)
+      end
+    end
+
+    should "include the author if the author is active" do
+      assert @issue.author, "No author set for Issue"
+      assert @issue.recipients.include?(@issue.author.mail)
+    end
+    
+    should "include the assigned to user if the assigned to user is active" do
+      assert @issue.assigned_to, "No assigned_to set for Issue"
+      assert @issue.recipients.include?(@issue.assigned_to.mail)
+    end
+
+    should "not include users who opt out of all email" do
+      @author.update_attribute(:mail_notification, :none)
+
+      assert !@issue.recipients.include?(@issue.author.mail)
+    end
+
+    should "not include the issue author if they are only notified of assigned issues" do
+      @author.update_attribute(:mail_notification, :only_assigned)
+
+      assert !@issue.recipients.include?(@issue.author.mail)
+    end
+
+    should "not include the assigned user if they are only notified of owned issues" do
+      @assignee.update_attribute(:mail_notification, :only_owner)
+
+      assert !@issue.recipients.include?(@issue.assigned_to.mail)
+    end
+
   end
 end

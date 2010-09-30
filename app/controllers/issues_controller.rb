@@ -21,6 +21,7 @@ class IssuesController < ApplicationController
   
   before_filter :find_issue, :only => [:show, :edit, :update]
   before_filter :find_issues, :only => [:bulk_edit, :bulk_update, :move, :perform_move, :destroy]
+  before_filter :check_project_uniqueness, :only => [:bulk_edit, :bulk_update, :move, :perform_move, :destroy]
   before_filter :find_project, :only => [:new, :create]
   before_filter :authorize, :except => [:index]
   before_filter :find_optional_project, :only => [:index]
@@ -284,6 +285,7 @@ private
   end
 
   # TODO: Refactor, lots of extra code in here
+  # TODO: Changing tracker on an existing issue should not trigger this
   def build_new_issue_from_params
     if params[:id].blank?
       @issue = Issue.new
@@ -302,7 +304,9 @@ private
     end
     if params[:issue].is_a?(Hash)
       @issue.safe_attributes = params[:issue]
-      @issue.watcher_user_ids = params[:issue]['watcher_user_ids'] if User.current.allowed_to?(:add_issue_watchers, @project)
+      if User.current.allowed_to?(:add_issue_watchers, @project) && @issue.new_record?
+        @issue.watcher_user_ids = params[:issue]['watcher_user_ids']
+      end
     end
     @issue.author = User.current
     @issue.start_date ||= Date.today

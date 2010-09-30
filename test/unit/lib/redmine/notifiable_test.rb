@@ -1,5 +1,5 @@
 # redMine - project management software
-# Copyright (C) 2006-2007  Jean-Philippe Lang
+# Copyright (C) 2006-2008  Jean-Philippe Lang
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -15,13 +15,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class JournalObserver < ActiveRecord::Observer
-  def after_create(journal)
-    if Setting.notified_events.include?('issue_updated') ||
-        (Setting.notified_events.include?('issue_note_added') && journal.notes.present?) ||
-        (Setting.notified_events.include?('issue_status_updated') && journal.new_status.present?) ||
-        (Setting.notified_events.include?('issue_priority_updated') && journal.new_value_for('priority_id').present?)
-      Mailer.deliver_issue_edit(journal)
+require File.dirname(__FILE__) + '/../../../test_helper'
+
+class Redmine::NotifiableTest < ActiveSupport::TestCase
+  def setup
+  end
+
+  def test_all
+    assert_equal 11, Redmine::Notifiable.all.length
+
+    %w(issue_added issue_updated issue_note_added issue_status_updated issue_priority_updated news_added document_added file_added message_posted wiki_content_added wiki_content_updated).each do |notifiable|
+      assert Redmine::Notifiable.all.collect(&:name).include?(notifiable), "missing #{notifiable}"
     end
   end
 end
