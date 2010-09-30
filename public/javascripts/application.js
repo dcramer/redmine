@@ -17,13 +17,6 @@ function toggleCheckboxesBySelector(selector) {
 	for (i = 0; i < boxes.length; i++) { boxes[i].checked = !all_checked; }
 }
 
-function setCheckboxesBySelector(checked, selector) {
-  var boxes = $$(selector);
-  boxes.each(function(ele) {
-    ele.checked = checked;
-  });
-}
-
 function showAndScrollTo(id, focus) {
 	Element.show(id);
 	if (focus!=null) { Form.Element.focus(focus); }
@@ -63,6 +56,7 @@ function addFileField() {
     dLabel.addClassName('inline');
     // Pulls the languge value used for Optional Description
     dLabel.update($('attachment_description_label_content').innerHTML)
+    
     p = document.getElementById("attachments_fields");
     p.appendChild(document.createElement("br"));
     p.appendChild(f);

@@ -16,11 +16,6 @@ class PreviewsController < ApplicationController
     render :layout => false
   end
 
-  def news
-    @text = (params[:news] ? params[:news][:description] : nil)
-    render :partial => 'common/preview'
-  end
-
   private
   
   def find_project
