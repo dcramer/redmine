@@ -15,11 +15,11 @@
 
 <% if @content.version != @page.content.version %>
     <p>    
-    <%= link_to(('&#171; ' + l(:label_previous)), :action => 'index', :page => @page.title, :version => (@content.version - 1)) + " - " if @content.version > 1 %>
+    <%= link_to(('&#171; ' + l(:label_previous)), :action => 'show', :page => @page.title, :version => (@content.version - 1)) + " - " if @content.version > 1 %>
     <%= "#{l(:label_version)} #{@content.version}/#{@page.content.version}" %>
     <%= '(' + link_to('diff', :controller => 'wiki', :action => 'diff', :page => @page.title, :version => @content.version) + ')' if @content.version > 1 %> - 
-    <%= link_to((l(:label_next) + ' &#187;'), :action => 'index', :page => @page.title, :version => (@content.version + 1)) + " - " if @content.version < @page.content.version %>
-    <%= link_to(l(:label_current_version), :action => 'index', :page => @page.title) %>
+    <%= link_to((l(:label_next) + ' &#187;'), :action => 'show', :page => @page.title, :version => (@content.version + 1)) + " - " if @content.version < @page.content.version %>
+    <%= link_to(l(:label_current_version), :action => 'show', :page => @page.title) %>
     <br />
     <em><%= @content.author ? @content.author.name : "anonyme" %>, <%= format_time(@content.updated_on) %> </em><br />
     <%=h @content.comments %>
@@ -35,7 +35,7 @@
 <div id="wiki_add_attachment">
 <p><%= link_to l(:label_attachment_new), {}, :onclick => "Element.show('add_attachment_form'); Element.hide(this); Element.scrollTo('add_attachment_form'); return false;",
                                              :id => 'attach_files_link' %></p>
-<% form_tag({ :controller => 'wiki', :action => 'add_attachment', :page => @page.title }, :multipart => true, :id => "add_attachment_form", :style => "display:none;") do %>
+<% form_tag({ :controller => 'wiki', :action => 'add_attachment', :project_id => @project, :page => @page.title }, :multipart => true, :id => "add_attachment_form", :style => "display:none;") do %>
   <div class="box">
   <p><%= render :partial => 'attachments/form' %></p>
   </div>

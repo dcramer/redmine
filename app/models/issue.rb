@@ -86,8 +86,8 @@ class Issue < ActiveRecord::Base
   }
 
   before_create :default_assign
-  before_save :reschedule_following_issues, :close_duplicates, :update_done_ratio_from_issue_status
-  after_save :update_nested_set_attributes, :update_parent_attributes, :create_journal
+  before_save :close_duplicates, :update_done_ratio_from_issue_status
+  after_save :reschedule_following_issues, :update_nested_set_attributes, :update_parent_attributes, :create_journal
   after_destroy :destroy_children
   after_destroy :update_parent_attributes
   
@@ -390,7 +390,9 @@ class Issue < ActiveRecord::Base
   
   # Users the issue can be assigned to
   def assignable_users
-    project.assignable_users
+    users = project.assignable_users
+    users << author if author
+    users.uniq.sort
   end
   
   # Versions that the issue can be assigned to

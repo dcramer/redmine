@@ -384,6 +384,23 @@ class UserTest < ActiveSupport::TestCase
         assert ! @dlopper.allowed_to?(:delete_messages, project) #Developper
       end
     end
+
+    context "with multiple projects" do
+      should "return false if array is empty" do
+        assert ! @admin.allowed_to?(:view_project, [])
+      end
+      
+      should "return true only if user has permission on all these projects" do
+        assert @admin.allowed_to?(:view_project, Project.all)
+        assert ! @dlopper.allowed_to?(:view_project, Project.all) #cannot see Project(2)
+        assert @jsmith.allowed_to?(:edit_issues, @jsmith.projects) #Manager or Developer everywhere
+        assert ! @jsmith.allowed_to?(:delete_issue_watchers, @jsmith.projects) #Dev cannot delete_issue_watchers
+      end
+      
+      should "behave correctly with arrays of 1 project" do
+        assert ! User.anonymous.allowed_to?(:delete_issues, [Project.first])
+      end
+    end
     
     context "with options[:global]" do
       should "authorize if user has at least one role that has this permission" do

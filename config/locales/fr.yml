@@ -718,7 +718,6 @@ fr:
   label_search_titles_only: Uniquement dans les titres
   label_user_mail_option_all: "Pour tous les événements de tous mes projets"
   label_user_mail_option_selected: "Pour tous les événements des projets sélectionnés..."
-  label_user_mail_option_none: "Seulement pour ce que je surveille ou à quoi je participe"
   label_user_mail_no_self_notified: "Je ne veux pas être notifié des changements que j'effectue"
   label_registration_activation_by_email: activation du compte par email
   label_registration_manual_activation: activation manuelle du compte
@@ -833,9 +832,9 @@ fr:
   text_subprojects_destroy_warning: "Ses sous-projets : {{value}} seront également supprimés."
   text_workflow_edit: Sélectionner un tracker et un rôle pour éditer le workflow
   text_are_you_sure: Êtes-vous sûr ?
-  text_tip_task_begin_day: tâche commençant ce jour
-  text_tip_task_end_day: tâche finissant ce jour
-  text_tip_task_begin_end_day: tâche commençant et finissant ce jour
+  text_tip_issue_begin_day: tâche commençant ce jour
+  text_tip_issue_end_day: tâche finissant ce jour
+  text_tip_issue_begin_end_day: tâche commençant et finissant ce jour
   text_project_identifier_info: 'Seuls les lettres minuscules (a-z), chiffres et tirets sont autorisés.<br />Un fois sauvegardé, l''identifiant ne pourra plus être modifié.'
   text_caracters_maximum: "{{count}} caractères maximum."
   text_caracters_minimum: "{{count}} caractères minimum."

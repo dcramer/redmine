@@ -34,25 +34,11 @@ module ApplicationHelper
   # Display a link if user is authorized
   #
   # @param [String] name Anchor text (passed to link_to)
-  # @param [Hash, String] options Hash params or url for the link target (passed to link_to).
-  #        This will checked by authorize_for to see if the user is authorized
+  # @param [Hash] options Hash params. This will checked by authorize_for to see if the user is authorized
   # @param [optional, Hash] html_options Options passed to link_to
   # @param [optional, Hash] parameters_for_method_reference Extra parameters for link_to
   def link_to_if_authorized(name, options = {}, html_options = nil, *parameters_for_method_reference)
-    if options.is_a?(String)
-      begin
-        route = ActionController::Routing::Routes.recognize_path(options.gsub(/\?.*/,''), :method => options[:method] || :get)
-        link_controller = route[:controller]
-        link_action = route[:action]
-      rescue ActionController::RoutingError # Parse failed, not a route
-        link_controller, link_action = nil, nil
-      end
-    else
-      link_controller = options[:controller] || params[:controller]
-      link_action = options[:action]
-    end
-
-    link_to(name, options, html_options, *parameters_for_method_reference) if authorize_for(link_controller, link_action)
+    link_to(name, options, html_options, *parameters_for_method_reference) if authorize_for(options[:controller] || params[:controller], options[:action])
   end
 
   # Display a link to remote if user is authorized
@@ -120,11 +106,6 @@ module ApplicationHelper
     text = options.delete(:text) || format_revision(revision)
 
     link_to(text, {:controller => 'repositories', :action => 'revision', :id => project, :rev => revision}, :title => l(:label_revision_id, revision))
-  end
-  
-  def link_to_project(project, options={})
-    options[:class] ||= 'project'
-    link_to(h(project), {:controller => 'projects', :action => 'show', :id => project}, :class => options[:class])
   end
 
   # Generates a link to a project if active
@@ -196,7 +177,7 @@ module ApplicationHelper
       content << "<ul class=\"pages-hierarchy\">\n"
       pages[node].each do |page|
         content << "<li>"
-        content << link_to(h(page.pretty_title), {:controller => 'wiki', :action => 'index', :id => page.project, :page => page.title},
+        content << link_to(h(page.pretty_title), {:controller => 'wiki', :action => 'show', :project_id => page.project, :page => page.title},
                            :title => (page.respond_to?(:updated_on) ? l(:label_updated_time, distance_of_time_in_words(Time.now, page.updated_on)) : nil))
         content << "\n" + render_page_hierarchy(pages, page.id) if pages[page.id]
         content << "</li>\n"
@@ -565,7 +546,7 @@ module ApplicationHelper
             when :local; "#{title}.html"
             when :anchor; "##{title}"   # used for single-file wiki export
             else
-              url_for(:only_path => only_path, :controller => 'wiki', :action => 'index', :id => link_project, :page => Wiki.titleize(page), :anchor => anchor)
+              url_for(:only_path => only_path, :controller => 'wiki', :action => 'show', :project_id => link_project, :page => Wiki.titleize(page), :anchor => anchor)
             end
           link_to((title || page), url, :class => ('wiki-page' + (wiki_page ? '' : ' new')))
         else
