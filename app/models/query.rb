@@ -258,10 +258,8 @@ class Query < ActiveRecord::Base
 
   # Add multiple filters using +add_filter+
   def add_filters(fields, operators, values)
-    if fields.is_a?(Array) && operators.is_a?(Hash) && values.is_a?(Hash)
-      fields.each do |field|
-        add_filter(field, operators[field], values[field])
-      end
+    fields.each do |field|
+      add_filter(field, operators[field], values[field])
     end
   end
   

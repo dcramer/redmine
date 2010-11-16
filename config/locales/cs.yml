@@ -237,6 +237,7 @@ cs:
   field_attr_lastname: Příjemní (atribut)
   field_attr_mail: Email (atribut)
   field_onthefly: Automatické vytváření uživatelů
+  field_start_date: Začátek
   field_done_ratio: % Hotovo
   field_auth_source: Autentifikační mód
   field_hide_mail: Nezobrazovat můj email
@@ -808,21 +809,21 @@ cs:
   label_date_from_to: Od {{start}} do {{end}}
   label_greater_or_equal: ">="
   label_less_or_equal: <=
-  text_wiki_page_destroy_question: Tato stránka má {{descendants}} podstránek a potomků. Co chcete udělat?
-  text_wiki_page_reassign_children: Přiřadit podstránky k tomuto rodiči
-  text_wiki_page_nullify_children: Ponechat podstránky jako kořenové stránky
-  text_wiki_page_destroy_children: Smazat podstránky a všechny jejich potomky
-  setting_password_min_length: Minimální délka hesla
-  field_group_by: Seskupovat výsledky podle
-  mail_subject_wiki_content_updated: "'{{id}}' Wiki stránka byla aktualizována"
-  label_wiki_content_added: Wiki stránka přidána
-  mail_subject_wiki_content_added: "'{{id}}' Wiki stránka byla přidána"
-  mail_body_wiki_content_added: "'{{id}}' Wiki stránka byla přidána od {{author}}."
-  label_wiki_content_updated: Wiki stránka aktualizována
-  mail_body_wiki_content_updated: "'{{id}}' Wiki stránka byla aktualizována od {{author}}."
-  permission_add_project: Vytvořit projekt
-  setting_new_project_user_role_id: Role přiřazená uživateli bez práv administrátora, který projekt vytvořil
-  label_view_all_revisions: Zobrazit všechny revize
+  text_wiki_page_destroy_question: This page has {{descendants}} child page(s) and descendant(s). What do you want to do?
+  text_wiki_page_reassign_children: Reassign child pages to this parent page
+  text_wiki_page_nullify_children: Keep child pages as root pages
+  text_wiki_page_destroy_children: Delete child pages and all their descendants
+  setting_password_min_length: Minimum password length
+  field_group_by: Group results by
+  mail_subject_wiki_content_updated: "'{{page}}' wiki page has been updated"
+  label_wiki_content_added: Wiki page added
+  mail_subject_wiki_content_added: "'{{page}}' wiki page has been added"
+  mail_body_wiki_content_added: The '{{page}}' wiki page has been added by {{author}}.
+  label_wiki_content_updated: Wiki page updated
+  mail_body_wiki_content_updated: The '{{page}}' wiki page has been updated by {{author}}.
+  permission_add_project: Create project
+  setting_new_project_user_role_id: Role given to a non-admin user who creates a project
+  label_view_all_revisions: View all revisions
   label_tag: Tag
   label_branch: Branch
   error_no_tracker_in_project: No tracker is associated to this project. Please check the Project settings.
@@ -910,20 +911,9 @@ cs:
   label_overall_spent_time: Overall spent time
   field_time_entries: Log time
   project_module_gantt: Gantt
-  project_module_calendar: Kalendář
-  button_edit_associated_wikipage: "Upravit přiřazenou Wiki stránku: {{page_title}}"
-  text_are_you_sure_with_children: Smazat úkol včetně všech podúkolů?
-  field_text: Textové pole
-  label_user_mail_option_only_owner: Only for things I am the owner of
-  setting_default_notification_option: Default notification option
-  label_user_mail_option_only_my_events: Only for things I watch or I'm involved in
-  label_user_mail_option_only_assigned: Only for things I am assigned to
-  label_user_mail_option_none: No events
-  field_member_of_group: Assignee's group
-  field_assigned_to_role: Assignee's role
-  notice_not_authorized_archived_project: The project you're trying to access has been archived.
-  field_start_date: Start date
-  label_principal_search: "Search for user or group:"
-  label_user_search: "Search for user:"
-  field_visible: Visible
-  setting_emails_header: Emails header
+  project_module_calendar: Calendar
+  field_member_of_group: Member of Group
+  field_assigned_to_role: Member of Role
+  button_edit_associated_wikipage: "Edit associated Wiki page: {{page_title}}"
+  text_are_you_sure_with_children: Delete issue and all child issues?
+  field_text: Text field

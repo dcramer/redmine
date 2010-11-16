@@ -277,6 +277,7 @@ pl:
   field_role: Rola
   field_searchable: Przeszukiwalne
   field_spent_on: Data
+  field_start_date: Start
   field_start_page: Strona startowa
   field_status: Status
   field_subject: Temat
@@ -834,12 +835,12 @@ pl:
   text_wiki_page_destroy_children: Usuń wszystkie podstrony
   setting_password_min_length: Minimalna długość hasła
   field_group_by: Grupuj wyniki wg
-  mail_subject_wiki_content_updated: "Strona wiki '{{id}}' została uaktualniona"
+  mail_subject_wiki_content_updated: "Strona wiki '{{page}}' została uaktualniona"
   label_wiki_content_added: Dodano stronę wiki
-  mail_subject_wiki_content_added: "Strona wiki '{{id}}' została dodana"
-  mail_body_wiki_content_added: Strona wiki '{{id}}' została dodana przez {{author}}.
+  mail_subject_wiki_content_added: "Strona wiki '{{page}}' została dodana"
+  mail_body_wiki_content_added: Strona wiki '{{page}}' została dodana przez {{author}}.
   label_wiki_content_updated: Uaktualniono stronę wiki
-  mail_body_wiki_content_updated: Strona wiki '{{id}}' została uaktualniona przez {{author}}.
+  mail_body_wiki_content_updated: Strona wiki '{{page}}' została uaktualniona przez {{author}}.
   permission_add_project: Tworzenie projektu
   setting_new_project_user_role_id: Rola nadawana twórcom projektów, którzy nie posiadają uprawnień administatora
   label_view_all_revisions: Pokaż wszystkie rewizje
@@ -932,19 +933,8 @@ pl:
   field_time_entries: Dziennik
   project_module_gantt: Diagram Gantta
   project_module_calendar: Kalendarz
+  field_member_of_group: Member of Group
+  field_assigned_to_role: Member of Role
   button_edit_associated_wikipage: "Edit associated Wiki page: {{page_title}}"
   text_are_you_sure_with_children: Delete issue and all child issues?
   field_text: Text field
-  label_user_mail_option_only_owner: Only for things I am the owner of
-  setting_default_notification_option: Default notification option
-  label_user_mail_option_only_my_events: Only for things I watch or I'm involved in
-  label_user_mail_option_only_assigned: Only for things I am assigned to
-  label_user_mail_option_none: No events
-  field_member_of_group: Assignee's group
-  field_assigned_to_role: Assignee's role
-  notice_not_authorized_archived_project: The project you're trying to access has been archived.
-  field_start_date: Start date
-  label_principal_search: "Search for user or group:"
-  label_user_search: "Search for user:"
-  field_visible: Visible
-  setting_emails_header: Emails header

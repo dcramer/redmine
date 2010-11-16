@@ -180,9 +180,7 @@ rescue LoadError
   log("This script requires activeresource.\nRun 'gem install activeresource' to install it.", :exit => true)
 end
 
-class Project < ActiveResource::Base
-  self.headers["User-agent"] = "Redmine repository manager/#{Version}"
-end
+class Project < ActiveResource::Base; end
 
 log("querying Redmine for projects...", :level => 1);
 
