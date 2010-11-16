@@ -29,7 +29,6 @@ class ProjectTest < ActiveSupport::TestCase
   should_validate_presence_of :name
   should_validate_presence_of :identifier
 
-  should_validate_uniqueness_of :name
   should_validate_uniqueness_of :identifier
 
   context "associations" do
@@ -102,6 +101,7 @@ class ProjectTest < ActiveSupport::TestCase
     @ecookbook.reload
     
     assert !@ecookbook.active?
+    assert @ecookbook.archived?
     assert !user.projects.include?(@ecookbook)
     # Subproject are also archived
     assert !@ecookbook.children.empty?
@@ -129,6 +129,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert @ecookbook.unarchive
     @ecookbook.reload
     assert @ecookbook.active?
+    assert !@ecookbook.archived?
     assert user.projects.include?(@ecookbook)
     # Subproject can now be unarchived
     @ecookbook_sub1.reload
